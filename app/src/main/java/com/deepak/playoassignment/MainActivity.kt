@@ -7,6 +7,9 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.deepak.playoassignment.data.model.Article
 import com.deepak.playoassignment.data.model.TopHeadlinesResponse
 import com.deepak.playoassignment.data.repository.DataRepository
 import com.deepak.playoassignment.data.service.RetrofitService
@@ -16,14 +19,15 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainViewModel
-
+    private var mLayoutManager: RecyclerView.LayoutManager? = null
+    var newsAdapter: NewsAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
+        initViews()
         val retrofitService = RetrofitService.getInstance()
         val mainRepository = DataRepository(retrofitService)
 
@@ -37,6 +41,11 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    private fun initViews() {
+        mLayoutManager = LinearLayoutManager(this)
+        binding.newsRecyclerView.layoutManager = mLayoutManager
+    }
+
     private fun onHeadlineData(state: ViewState<TopHeadlinesResponse>?) {
         when (state) {
             is Loading -> setProgress(true)
@@ -47,8 +56,15 @@ class MainActivity : AppCompatActivity() {
             is Success -> {
                 setProgress(false)
                 Log.i("data",state.mData.totalResults.toString())
+                populateUI(state.mData.articles)
             }
         }
+    }
+
+    private fun populateUI(articles: List<Article>?) {
+        newsAdapter = NewsAdapter(articles)
+        binding.newsRecyclerView.adapter = newsAdapter
+
     }
 
     private fun setProgress(isLoading: Boolean) {

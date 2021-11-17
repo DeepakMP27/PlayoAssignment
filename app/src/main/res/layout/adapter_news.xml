@@ -25,7 +25,6 @@
                 android:id="@+id/author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Ron Miller"
                 android:textSize="14sp"
                 android:textStyle="bold"
                 android:layout_marginBottom="2dp"/>
@@ -34,7 +33,6 @@
                 android:id="@+id/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="EasySend raises $55.5M for a no-code platform to build online interactions with customers"
                 android:textSize="16sp"
                 android:textStyle="bold"
                 android:layout_marginVertical="2dp"/>
@@ -43,7 +41,6 @@
                 android:id="@+id/description"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Machine learning is exploding, and so are the number of models out there for developers to choose from. While Google can help, it’s not really designed as a model search engine. That’s where CatalyzeX comes in: It not only helps developers find the most appro…"
                 android:textSize="12sp"
                 android:layout_marginVertical="2dp"/>
         </LinearLayout>
